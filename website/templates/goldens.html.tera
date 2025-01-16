@@ -1,0 +1,10 @@
+{% extends "base" %}
+
+{% block title %}Goldens{% endblock title %}
+
+{% block content %}
+<h1 class="title">Golden strawberry completions</h1>
+<p>
+    More text
+</p>
+{% endblock content %}

@@ -1,0 +1,10 @@
+{% extends "base" %}
+
+{% block title %}Speedruns{% endblock title %}
+
+{% block content %}
+<h1 class="title">Record of my speedruns</h1>
+<p>
+    Madeline go brrrrrrrrrrrr
+</p>
+{% endblock content %}

@@ -1,0 +1,10 @@
+{% extends "base" %}
+
+{% block title %}Custom Maps{% endblock title %}
+
+{% block content %}
+<h1 class="title">Something about custom map completions</h1>
+<p>
+    some text
+</p>
+{% endblock content %}
