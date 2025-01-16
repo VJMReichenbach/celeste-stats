@@ -1,8 +1,9 @@
 use rocket::{get, launch, routes};
+use rocket_dyn_templates::{context, Template};
 
 #[get("/")]
-fn index() -> &'static str {
-    "This is the index page"
+fn index() -> Template {
+    Template::render("index", context! {})
 }
 
 #[get("/custom-maps")]
@@ -25,4 +26,5 @@ fn rocket() -> _ {
         .mount("/", routes![custom_maps])
         .mount("/", routes![golden])
         .mount("/", routes![speedrun])
+        .attach(Template::fairing())
 }
