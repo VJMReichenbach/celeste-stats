@@ -10,11 +10,11 @@ fn index() -> Template {
 fn custom_maps() -> &'static str {
     "This shows the custom maps"
 }
-#[get("/golden")]
+#[get("/goldens")]
 fn golden() -> &'static str {
     "This shows information about the golden berries"
 }
-#[get("/speedrun")]
+#[get("/speedruns")]
 fn speedrun() -> &'static str {
     "This shows information about my speedrun PBs"
 }
