@@ -1,7 +1,7 @@
 # Plan
 
 Create backend with rocket
-Create frontend with yew
+~Create frontend with yew~ for now just make everything static
 
 # Sites
 
