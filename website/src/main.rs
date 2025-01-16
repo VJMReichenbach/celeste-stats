@@ -7,16 +7,16 @@ fn index() -> Template {
 }
 
 #[get("/custom-maps")]
-fn custom_maps() -> &'static str {
-    "This shows the custom maps"
+fn custom_maps() -> Template {
+    Template::render("custom_maps", context! {})
 }
 #[get("/goldens")]
-fn golden() -> &'static str {
-    "This shows information about the golden berries"
+fn golden() -> Template {
+    Template::render("goldens", context! {})
 }
 #[get("/speedruns")]
-fn speedrun() -> &'static str {
-    "This shows information about my speedrun PBs"
+fn speedrun() -> Template {
+    Template::render("speedruns", context! {})
 }
 
 #[launch]
