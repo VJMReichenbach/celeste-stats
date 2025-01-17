@@ -1,9 +1,12 @@
 use rocket::{get, launch, routes};
 use rocket_dyn_templates::{context, Template};
 
+mod parsing;
+
 #[get("/")]
 fn index() -> Template {
-    Template::render("index", context! {})
+    let file_content = parsing::parse_csv_file("custom_maps.csv");
+    Template::render("index", context! {content: file_content})
 }
 
 #[get("/custom-maps")]

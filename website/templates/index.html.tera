@@ -3,8 +3,5 @@
 {% block title %}Overview{% endblock title %}
 
 {% block content %}
-<h1 class="title">Welcome to Celeste Stats</h1>
-<p>
-    <strong>TODO</strong>: Put something here
-</p>
+{{ content }}
 {% endblock content %}
