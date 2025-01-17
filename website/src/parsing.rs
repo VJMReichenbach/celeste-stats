@@ -6,12 +6,25 @@ const data_location: &str = "../data/";
 fn read_csv_file(p: &str) -> Result<String, Box<dyn Error>> {
     let file = data_location.to_owned() + p;
     let content: String = fs::read_to_string(file)?;
-    let mut table: String = String::from("<table class=\"table\">");
+    let mut table: String = String::from(
+        "<div class=\"table-container\"><table class=\"table is-bordered is-hoverable\">",
+    );
     let mut header: String = String::from("");
     let mut table_body = String::from("");
     for (i, line) in content.split("\n").enumerate() {
-        table_body += "<tr>";
-        for cell in line.split(",") {
+        let cells: Vec<&str> = line.split(",").collect();
+        let status = cells[5];
+        if status.trim() == "TODO" {
+            table_body += "<tr class=\"is-danger\">";
+        } else if status.trim() == "WIP" {
+            table_body += "<tr class=\"is-warning\">";
+        } else if status.trim() == "Completed" {
+            table_body += "<tr class=\"is-success\">";
+        } else {
+            table_body += "<tr>";
+        }
+
+        for cell in cells {
             if i == 0 {
                 header += "<th>";
                 header += cell;
@@ -27,7 +40,7 @@ fn read_csv_file(p: &str) -> Result<String, Box<dyn Error>> {
     table += &("<thead>".to_owned() + &header + "</thread>");
     table += &("<tfoot>".to_owned() + &header + "</tfoot>");
     table += &("<tbody>".to_owned() + &table_body + "</tbody>");
-    table += "</table>";
+    table += "</table></div>";
 
     Ok(table)
 }
