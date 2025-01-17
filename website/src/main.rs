@@ -1,4 +1,4 @@
-use rocket::{get, launch, routes};
+use rocket::{fs::FileServer, get, launch, routes};
 use rocket_dyn_templates::{context, Template};
 
 mod parsing;
@@ -29,5 +29,6 @@ fn rocket() -> _ {
         .mount("/", routes![custom_maps])
         .mount("/", routes![golden])
         .mount("/", routes![speedrun])
+        .mount("/css", FileServer::from("css"))
         .attach(Template::fairing())
 }
