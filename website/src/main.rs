@@ -5,13 +5,13 @@ mod parsing;
 
 #[get("/")]
 fn index() -> Template {
-    let file_content = parsing::parse_csv_file("custom_maps.csv");
-    Template::render("index", context! {content: file_content})
+    Template::render("index", context! {content: "Content goes here"})
 }
 
 #[get("/custom-maps")]
 fn custom_maps() -> Template {
-    Template::render("custom_maps", context! {})
+    let file_content = parsing::parse_csv_file("custom_maps.csv");
+    Template::render("custom_maps", context! {content: file_content})
 }
 #[get("/goldens")]
 fn golden() -> Template {
