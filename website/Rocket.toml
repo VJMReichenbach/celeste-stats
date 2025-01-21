@@ -1,2 +1,11 @@
 [default]
+## defaults for _all_ profiles
 template_dir = "templates"
+
+## set only when compiled in debug mode, i.e, `cargo build`
+[debug]
+port = 8000
+
+## set only when compiled in release mode, i.e, `cargo build --release`
+[release]
+port = 9999

@@ -1,0 +1,14 @@
+[Unit]
+Description=Celeste Stats Website rocket backend
+After=network.target
+
+[Service]
+Type=simple
+WorkingDirectory=/www/celeste-stats
+ExecStart=/www/celeste-stats/target/release/website
+User=pkg
+Group=pkg
+Restart=always
+
+[Install]
+WantedBy=multi-user.target
