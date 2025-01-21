@@ -36,6 +36,6 @@ fn rocket() -> _ {
         .mount("/", routes![custom_maps])
         .mount("/", routes![golden])
         .mount("/", routes![speedrun])
-        .mount("/css", FileServer::from("css"))
+        //.mount("/css", FileServer::from("css"))
         .attach(Template::fairing())
 }
