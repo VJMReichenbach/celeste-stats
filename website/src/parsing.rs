@@ -1,11 +1,9 @@
-use glob::glob;
 use serde::Deserialize;
-use std::{error::Error, fs, path::Path, time::Duration};
+use std::{fs, path::Path};
 use toml::value::{Date, Time};
-use toml::Value;
 
 // TODO: make this configureable via Cargo.toml
-const custom_map_location: &str = "../data/custom_maps/*.toml";
+const CUSTOM_MAP_LOCATION: &str = "../data/custom_maps/*.toml";
 
 #[derive(Deserialize)]
 pub struct CustomMap {
@@ -19,7 +17,6 @@ pub struct CustomMap {
 }
 
 fn parse_custom_map(path: &Path) -> CustomMap {
-    // TODO: error here
     let file_content = fs::read_to_string(path).unwrap();
     let map: CustomMap = toml::from_str(&file_content).unwrap();
     map
@@ -27,7 +24,7 @@ fn parse_custom_map(path: &Path) -> CustomMap {
 
 pub fn parse_custom_maps() -> String {
     let mut maps: Vec<CustomMap> = vec![];
-    for path in glob::glob(custom_map_location).unwrap() {
+    for path in glob::glob(CUSTOM_MAP_LOCATION).unwrap() {
         let path = path.unwrap();
         let map = parse_custom_map(&path);
         maps.push(map);
