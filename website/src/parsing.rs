@@ -1,57 +1,41 @@
-use std::{error::Error, fs, path::Path};
+use glob::glob;
+use serde::Deserialize;
+use std::{error::Error, fs, path::Path, time::Duration};
+use toml::value::Datetime;
 
 // TODO: make this configureable via Cargo.toml
-const data_location: &str = "../data/";
+const custom_map_location: &str = "../data/custom_maps/*.toml";
 
-fn read_csv_file(p: &str) -> Result<String, Box<dyn Error>> {
-    let file = data_location.to_owned() + p;
-    let content: String = fs::read_to_string(file)?;
-    let mut table: String = String::from(
-        "<div class=\"table-container\"><table class=\"table is-bordered is-hoverable\">",
-    );
-    let mut header: String = String::from("");
-    let mut table_body = String::from("");
-    for (i, line) in content.split("\n").enumerate() {
-        let cells: Vec<&str> = line.split(",").collect();
-        let status = cells[5];
-        if status.trim() == "TODO" {
-            table_body += "<tr class=\"is-danger\">";
-        } else if status.trim() == "WIP" {
-            table_body += "<tr class=\"is-warning\">";
-        } else if status.trim() == "Completed" {
-            table_body += "<tr class=\"is-success\">";
-        } else {
-            table_body += "<tr>";
-        }
-
-        for cell in cells {
-            if i == 0 {
-                header += "<th>";
-                header += cell;
-                header += "</th>";
-            } else {
-                table_body += "<td>";
-                table_body += cell;
-                table_body += "</td>";
-            }
-        }
-        table_body += "</tr>";
-    }
-    table += &("<thead>".to_owned() + &header + "</thread>");
-    table += &("<tfoot>".to_owned() + &header + "</tfoot>");
-    table += &("<tbody>".to_owned() + &table_body + "</tbody>");
-    table += "</table></div>";
-
-    Ok(table)
+#[derive(Deserialize)]
+pub struct CustomMap {
+    title: String,
+    time: Duration,
+    deaths: i32,
+    date_cleared: Datetime,
+    enjoyed: String,
+    difficulty: String,
+    notes: String,
 }
 
-pub fn parse_csv_file(p: &str) -> String {
-    let mut message = String::from("");
-    let path = data_location.to_owned() + p;
-    if let Ok(content) = read_csv_file(&path) {
-        message = content
-    } else {
-        message = String::from("There was an error reading file: ") + &path
+fn parse_custom_map(path: &Path) -> Result<CustomMap, Box<dyn Error>> {
+    // TODO: error here
+    let file_content = fs::read_to_string(path).unwrap();
+    let custom_map: CustomMap = toml::from_str(&file_content).unwrap();
+    Ok(custom_map)
+}
+
+pub fn parse_custom_maps() -> String {
+    let mut maps: Vec<CustomMap> = vec![];
+    for path in glob::glob(custom_map_location).unwrap() {
+        let path = path.unwrap();
+        let map = parse_custom_map(&path).unwrap();
+        maps.push(map);
     }
-    message
+
+    let mut return_str = String::new();
+    for c in maps {
+        return_str += &format!("<li>{}</li>\n", c.title);
+    }
+    return_str = "hi".to_owned();
+    return return_str;
 }

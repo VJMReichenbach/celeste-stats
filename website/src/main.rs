@@ -10,8 +10,8 @@ fn index() -> Template {
 
 #[get("/custom-maps")]
 fn custom_maps() -> Template {
-    let file_content = parsing::parse_csv_file("custom_maps.csv");
-    Template::render("custom_maps", context! {content: file_content})
+    let maps = parsing::parse_custom_maps();
+    Template::render("custom_maps", context! {content: maps})
 }
 #[get("/goldens")]
 fn golden() -> Template {
