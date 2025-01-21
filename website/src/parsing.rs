@@ -81,10 +81,7 @@ pub fn parse_custom_maps() -> (String, String, i32) {
         maps.push(map);
     }
     let total_time = DateTime::from_timestamp(total_seconds, total_nanoseconds).unwrap();
-    let total_time = format!(
-        "Total time (HH:MM:SS.sss): {}",
-        total_time.format("%H:%M:%S.%3f")
-    );
+    let total_time = format!("Total time: {}", total_time.format("%H:%M:%S.%3f"));
     let table = create_custom_map_table(maps);
     (table, total_time, total_deaths)
 }
