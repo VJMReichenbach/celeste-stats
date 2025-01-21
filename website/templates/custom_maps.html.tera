@@ -4,15 +4,15 @@
 
 {% block content %}
 <div class="grid">
-<div class="box">
-{{ total_time | safe}}
-</div>
-<div class="box">
-{{ total_deaths | safe}}
-</div>
+    <div class="box">
+        <p>Total time: <strong>{{ total_time | safe}}</strong></p>
+    </div>
+    <div class="box">
+        <p>Total deaths: <strong>{{ total_deaths | safe}}</strong></p>
+    </div>
 </div>
 
 <div class="box">
-{{ map_table | safe}}
+    {{ map_table | safe}}
 </div>
 {% endblock content %}
