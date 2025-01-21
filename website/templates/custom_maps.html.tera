@@ -3,6 +3,10 @@
 {% block title %}Custom Maps{% endblock title %}
 
 {% block content %}
+<div class="box">
+    <h1 class="title">Custom Maps Completions</h1>
+    <p>Here you can find a list of the custom maps I have completed.</p>
+</div>
 <div class="columns is-vcentered">
     <div class="column is-half">
         <div class="box">
