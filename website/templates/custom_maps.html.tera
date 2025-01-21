@@ -3,12 +3,16 @@
 {% block title %}Custom Maps{% endblock title %}
 
 {% block content %}
-<div class="grid">
-    <div class="box">
-        <p>Total time: <strong>{{ total_time | safe}}</strong></p>
+<div class="columns is-vcentered">
+    <div class="column is-half">
+        <div class="box">
+            <p>Total time: <strong>{{ total_time | safe}}</strong></p>
+        </div>
     </div>
-    <div class="box">
-        <p>Total deaths: <strong>{{ total_deaths | safe}}</strong></p>
+    <div class="column is-half">
+        <div class="box">
+            <p>Total deaths: <strong>{{ total_deaths | safe}}</strong></p>
+        </div>
     </div>
 </div>
 
