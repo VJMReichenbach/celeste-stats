@@ -22,6 +22,44 @@ fn parse_custom_map(path: &Path) -> CustomMap {
     map
 }
 
+fn create_custom_map_table(maps: Vec<CustomMap>) -> String {
+    // this is both the header and footer
+    let head_foot = "<th>Title</th><th>Time</th><th>Deaths</th><th>Date cleared</th><th>Enjoyment</th><th>Difficulty</th><th>Notes</th>";
+    let mut table = String::new();
+    table += "<table class=\"table is-bordered is-striped is-hoverable is-fullwidth\">";
+
+    // add header
+    table += "<thead><tr>";
+    table += head_foot;
+    table += "</tr></thead>";
+
+    table += "<tbody>";
+
+    // add rows
+    for map in maps {
+        table += "<tr>";
+        table += &format!("<td>{}</td>", map.title);
+        table += &format!("<td>{}</td>", map.time);
+        table += &format!("<td>{}</td>", map.deaths);
+        table += &format!("<td>{}</td>", map.date_cleared);
+        table += &format!("<td>{}</td>", map.enjoyment);
+        table += &format!("<td>{}</td>", map.difficulty);
+        table += &format!("<td>{}</td>", map.notes);
+        table += "</tr>";
+    }
+
+    table += "</tbody>";
+
+    // add footer
+    table += "<tfoot><tr>";
+    table += head_foot;
+    table += "</tr></tfoot>";
+
+    table += "</table>";
+
+    table
+}
+
 pub fn parse_custom_maps() -> String {
     let mut maps: Vec<CustomMap> = vec![];
     for path in glob::glob(CUSTOM_MAP_LOCATION).unwrap() {
@@ -30,9 +68,6 @@ pub fn parse_custom_maps() -> String {
         maps.push(map);
     }
 
-    let mut return_str = String::new();
-    for c in maps {
-        return_str += &format!("<li>{}</li>\n", c.title);
-    }
-    return_str
+    let table = create_custom_map_table(maps);
+    table
 }
